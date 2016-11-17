@@ -36,20 +36,25 @@ public class playerController : MonoBehaviour {
 			} else if (Input.GetKeyDown ("s")) {
 				curChoice=weapons.paper;
 				addToMoves();
+
 			} else if (Input.GetKeyDown ("d")) {
 				curChoice=weapons.scissors;
 				addToMoves();
+
 			}
 		} else if (playerNumber == 2) {
 			if (Input.GetKeyDown("j")) {
 				curChoice=weapons.rock;
 				addToMoves();
+
 			} else if (Input.GetKeyDown ("k")) {
 				curChoice=weapons.paper;
 				addToMoves();
+
 			} else if (Input.GetKeyDown ("l")) {
 				curChoice=weapons.scissors;
 				addToMoves();
+
 			}
 
 		}
@@ -58,6 +63,7 @@ public class playerController : MonoBehaviour {
 	void addToMoves(){
 		if(curPosInMoves<5){
 			moves[curPosInMoves]=curChoice;
+			print(moves[curPosInMoves]);
 			curPosInMoves++;
 		}
 	}
