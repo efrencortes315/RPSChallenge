@@ -6,6 +6,8 @@ public class match : MonoBehaviour {
 	public playerController player1;
 	public playerController player2;
 	public Text uiTimer;
+	public Text p1Health;
+	public Text p2Health;
 	public GameObject[] p1moves;
 	public GameObject[] p2moves;
 	public GameObject rockImg;
@@ -25,7 +27,9 @@ public class match : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		p1Health.text = "Health:"+player1.health;
+		p2Health.text = "Health:"+player2.health;
+		print ("reached");
 	}
 	void judge(){
 
@@ -84,11 +88,21 @@ public class match : MonoBehaviour {
 		player1.curPosInMoves = 0;
 		player2.curPosInMoves = 0;
 		//Array based combat end
+		if (player1.score > player2.score) {
+			player2.health-= (player1.score-player2.score);
+		}
+
+		if (player2.score > player1.score) {
+			player1.health-=(player2.score-player1.score);
+		}
 		print ("Player 1: " + player1.score + "/ Player 2: " + player2.score);
+		player1.score = 0;
+		player2.score = 0;
 	}
 	void timer(){
 
 		float a = Time.time % 7;
 		uiTimer.text = a.ToString();
+
 	}
 }

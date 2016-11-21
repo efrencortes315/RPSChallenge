@@ -4,7 +4,7 @@ using System.Collections;
 public class playerController : MonoBehaviour {
 	public int playerNumber;
 	public int score;
-
+	public int health;
 	//11/15//
 	public weapons[] moves = new weapons[5];
 	public int curPosInMoves;
@@ -24,6 +24,7 @@ public class playerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		curPosInMoves = 0;
+		health = 100;
 	}
 	
 	// Update is called once per frame
