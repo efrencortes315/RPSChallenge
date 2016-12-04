@@ -13,7 +13,7 @@ public class match : MonoBehaviour {
 	public GameObject rockImg;
 	public GameObject paperImg;
 	public GameObject scissImg;
-
+	public Slider p1healthSlider;
 	//if the number of moves per round ends up changing, you will need to edit these arrays below (a1,a2)
 	Object[] a1 = new Object[5];
 	Object[] a2 = new Object[5];
@@ -23,11 +23,17 @@ public class match : MonoBehaviour {
 		InvokeRepeating ("timer", 0f, 1f);
 		//Object test1 = Object.Instantiate (instant,test.transform.position,Quaternion.identity);
 		//Object.Destroy (test1);
+		//TODO health bar!
+		p1healthSlider.interactable = false;
+		p1healthSlider.minValue = 0f;
+		p1healthSlider.maxValue = 100f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		p1Health.text = "Health:"+player1.health;
+		p1healthSlider.value = (float)player1.health;
+
 		p2Health.text = "Health:"+player2.health;
 		print ("reached");
 	}
