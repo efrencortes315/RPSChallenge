@@ -11,8 +11,11 @@ public class match : MonoBehaviour {
 	public GameObject[] p1moves;
 	public GameObject[] p2moves;
 	public GameObject rockImg;
+	public GameObject rockImgLose;
 	public GameObject paperImg;
+	public GameObject paperImgLose;
 	public GameObject scissImg;
+	public GameObject scissImgLose;
 	public Slider p1healthSlider;
 	public Image p1Fill;
 	public Slider p2healthSlider;
@@ -56,53 +59,10 @@ public class match : MonoBehaviour {
 			GameObject.Destroy(a1[i]);
 			GameObject.Destroy(a2[i]);
 		}	
-
 		for (int i=0; i<player1.moves.Length; i++) {
-			if(player1.moves[i]==playerController.weapons.rock){
-				a1[i] = (GameObject)GameObject.Instantiate(rockImg,p1moves[i].transform.position,Quaternion.identity);
-			}else if(player1.moves[i]==playerController.weapons.paper){
-				a1[i] = (GameObject)GameObject.Instantiate(paperImg,p1moves[i].transform.position,Quaternion.identity);
-			}else if(player1.moves[i]==playerController.weapons.scissors){
-				a1[i] = (GameObject)GameObject.Instantiate(scissImg,p1moves[i].transform.position,Quaternion.identity);
-			}
-
-			if(player2.moves[i]==playerController.weapons.rock){
-				a2[i] = (GameObject)GameObject.Instantiate(rockImg,p2moves[i].transform.position,Quaternion.identity);
-			}else if(player2.moves[i]==playerController.weapons.paper){
-				a2[i] = (GameObject)GameObject.Instantiate(paperImg,p2moves[i].transform.position,Quaternion.identity);
-			}else if(player2.moves[i]==playerController.weapons.scissors){
-				a2[i] = (GameObject)GameObject.Instantiate(scissImg,p2moves[i].transform.position,Quaternion.identity);
-			}
+		 InstantiateWeaponChoices (i);
 		}
 
-		for (int i=0; i<player1.moves.Length; i++) {
-			//handle if player didnt input anything
-			if(player1.moves[i] == playerController.weapons.none){
-
-			}
-			if(player2.moves[i] == playerController.weapons.none){
-
-			}
-			//end handle input error
-
-			if (player1.moves [i] == playerController.weapons.rock && player2.moves[i] == playerController.weapons.scissors) {
-				player1.score+=1;
-				//TODO rather than try to change the alpha of the losing choice, add a new image of the losing choice
-				//destroy the old, instantiate the new and have the proper index of the array point to the newly instantiated one
-				Color tmp = a2[i].renderer.material.color;
-				tmp.a= 0.5f;
-			}else if (player1.moves [i] == playerController.weapons.paper && player2.moves [i] == playerController.weapons.scissors) {
-				player2.score+=1;
-			}else if (player1.moves [i] == playerController.weapons.rock && player2.moves [i] == playerController.weapons.paper) {
-				player2.score+=1;
-			}else if (player1.moves [i] == playerController.weapons.paper && player2.moves [i] == playerController.weapons.rock) {
-				player1.score+=1;
-			}else if (player1.moves [i] == playerController.weapons.scissors && player2.moves [i] == playerController.weapons.paper) {
-				player1.score+=1;
-			}else if (player1.moves [i] == playerController.weapons.scissors && player2.moves [i] == playerController.weapons.rock) {
-				player2.score+=1;
-			}
-		}
 		for (int i=0; i<player1.moves.Length; i++) {
 			player1.moves[i]=playerController.weapons.none;
 			player2.moves[i]=playerController.weapons.none;
@@ -127,4 +87,57 @@ public class match : MonoBehaviour {
 		uiTimer.text = a.ToString();
 
 	}
+	void InstantiateWeaponChoices(int i){
+
+			//handle if player didnt input anything
+			if(player1.moves[i] == playerController.weapons.none){
+			}
+			if(player2.moves[i] == playerController.weapons.none){
+			}
+			//TODO end handle input error
+			if (player1.moves [i] == playerController.weapons.rock && player2.moves[i] == playerController.weapons.scissors) {
+				a1[i] = (GameObject)GameObject.Instantiate(rockImg,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(scissImgLose,p2moves[i].transform.position,Quaternion.identity);
+				player1.score+=1;
+			}else if (player1.moves [i] == playerController.weapons.paper && player2.moves [i] == playerController.weapons.scissors) {
+				a1[i] = (GameObject)GameObject.Instantiate(paperImgLose,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(scissImg,p2moves[i].transform.position,Quaternion.identity);
+				player2.score+=1;
+			}else if (player1.moves [i] == playerController.weapons.rock && player2.moves [i] == playerController.weapons.paper) {
+				a1[i] = (GameObject)GameObject.Instantiate(rockImgLose,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(paperImg,p2moves[i].transform.position,Quaternion.identity);
+				player2.score+=1;
+			}else if (player1.moves [i] == playerController.weapons.paper && player2.moves [i] == playerController.weapons.rock) {
+				a1[i] = (GameObject)GameObject.Instantiate(paperImg,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(rockImgLose,p2moves[i].transform.position,Quaternion.identity);
+				player1.score+=1;
+			}else if (player1.moves [i] == playerController.weapons.scissors && player2.moves [i] == playerController.weapons.paper) {
+				a1[i] = (GameObject)GameObject.Instantiate(scissImg,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(paperImgLose,p2moves[i].transform.position,Quaternion.identity);
+				player1.score+=1;
+			}else if (player1.moves [i] == playerController.weapons.scissors && player2.moves [i] == playerController.weapons.rock) {
+				a1[i] = (GameObject)GameObject.Instantiate(scissImgLose,p1moves[i].transform.position,Quaternion.identity);
+				a2[i] = (GameObject)GameObject.Instantiate(rockImg,p2moves[i].transform.position,Quaternion.identity);
+				player2.score+=1;
+			}else{
+				if(player1.moves[i]==playerController.weapons.rock){
+					a1[i] = (GameObject)GameObject.Instantiate(rockImg,p1moves[i].transform.position,Quaternion.identity);
+					
+				}else if(player1.moves[i]==playerController.weapons.paper){
+					a1[i] = (GameObject)GameObject.Instantiate(paperImg,p1moves[i].transform.position,Quaternion.identity);
+				}else if(player1.moves[i]==playerController.weapons.scissors){
+					a1[i] = (GameObject)GameObject.Instantiate(scissImg,p1moves[i].transform.position,Quaternion.identity);
+				}
+				
+				if(player2.moves[i]==playerController.weapons.rock){
+					a2[i] = (GameObject)GameObject.Instantiate(rockImg,p2moves[i].transform.position,Quaternion.identity);
+				}else if(player2.moves[i]==playerController.weapons.paper){
+					a2[i] = (GameObject)GameObject.Instantiate(paperImg,p2moves[i].transform.position,Quaternion.identity);
+				}else if(player2.moves[i]==playerController.weapons.scissors){
+					a2[i] = (GameObject)GameObject.Instantiate(scissImg,p2moves[i].transform.position,Quaternion.identity);
+				}
+			}
+
+		}
+
 }
